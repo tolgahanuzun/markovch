@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
   name = 'markovch',
   packages = ['markovch'], 
-  version = '0.1',
+  version = '0.1.1',
   description = 'Markov chain implementation',
   author = 'Tolgahan Üzün',
   author_email = 'mail@tolgahanuzun.com',

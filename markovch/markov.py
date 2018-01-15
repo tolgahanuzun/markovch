@@ -12,16 +12,16 @@ class Markov(object):
         self.state = self.data[0][0]
 
     def check_state(self):
-        print('Current State: %s' % (self.state))
+        print('%s ' % (self.state))
 
     def set_state(self, state):
         self.state = state
-        print('State is now: %s' % (self.state))
+        print('%s ' % (self.state))
 
     def next_state(self):
         A = self.state_dict[self.state]
         self.state = np.random.choice(a=list(A[0]), p=list(A[1]))
-        print('New State: %s' % (self.state))
+        print('%s ' % (self.state))
 
     def read_file(self, file_name):
         with open(file_name, 'r') as f:
@@ -48,6 +48,7 @@ class Markov(object):
                         new_dict[uniqe] = new_dict[uniqe] +  [data[next_element]]
                     else:
                         new_dict[uniqe] = new_dict[uniqe] + [self.data[0][0]]
+            new_dict[uniqe] = set(new_dict[uniqe])    
         return new_dict
 
     def analytic(self, markov):

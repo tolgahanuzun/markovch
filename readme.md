@@ -15,10 +15,7 @@ pip install markovch
 from markovch import markov
 
 diagram = markov.Markov('./data_eng.txt')
-diagram.check_state() # Head value print
-
-for x in range(40): #Total predictions.
-    diagram.next_state()
+print(diagram.result_list(50))
 ```
 
 ### Todo

@@ -10,18 +10,19 @@ class Markov(object):
         self.markov = self.markov_data(self.uniqe_data, self.data)
         self.state_dict = self.analytic(self.markov)
         self.state = self.data[0][0]
+        self.result_data = None
 
     def check_state(self):
-        print('%s ' % (self.state))
+        return self.state
 
     def set_state(self, state):
         self.state = state
-        print('%s ' % (self.state))
+        return self.state
 
     def next_state(self):
         A = self.state_dict[self.state]
         self.state = np.random.choice(a=list(A[0]), p=list(A[1]))
-        print('%s ' % (self.state))
+        return self.state
 
     def read_file(self, file_name):
         with open(file_name, 'r') as f:
@@ -56,3 +57,29 @@ class Markov(object):
             if len(markov[datas]):
                 markov[datas] = markov[datas], np.full(len(markov[datas]), 1/len(markov[datas]))
         return markov
+
+    def loop_state(self, loop):
+        return [self.next_state() for row in range(loop)]
+
+    def sentence_true(self, loop):
+        self.result_data = [self.state] + self.loop_state(loop)
+        a = ['?' in data for data in self.result_data]
+        b = ['.' in data for data in self.result_data]
+        c = ['!' in data for data in self.result_data]
+        d = [':' in data for data in self.result_data]
+
+        return list(map(lambda x, y, z, k: x + y + z + k, a, b, c, d))
+
+    def diffirent_sentence(self, data, data_true):
+        if not data_true:
+            return []
+        else:
+            index = data_true.index(1) + 1
+            return [data[:index]] + self.diffirent_sentence(data[index:],data_true[index:])
+
+    def result_list(self, loop):
+        data_true = self.sentence_true(loop)
+        if 1 in data_true:
+            return self.diffirent_sentence(self.result_data, data_true)
+        else:
+            return self.result_data

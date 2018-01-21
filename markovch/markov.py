@@ -71,7 +71,7 @@ class Markov(object):
         return list(map(lambda x, y, z, k: x + y + z + k, a, b, c, d))
 
     def diffirent_sentence(self, data, data_true):
-        if not data_true:
+        if not sum(data_true):
             return []
         else:
             index = data_true.index(1) + 1

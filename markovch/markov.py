@@ -48,7 +48,8 @@ class Markov(object):
                     if len(data) != next_element:
                         new_dict[uniqe] = new_dict[uniqe] +  [data[next_element]]
                     else:
-                        new_dict[uniqe] = new_dict[uniqe] + [self.data[0][0]]
+                        #import ipdb; ipdb.set_trace()
+                        new_dict[uniqe] = new_dict[uniqe] + [data[0]]
             new_dict[uniqe] = set(new_dict[uniqe])    
         return new_dict
 
